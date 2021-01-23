@@ -5,7 +5,7 @@ This project is a template that's intended to serve as a guide for working with 
 
 This project is based on the [aws-cdk-js-dev-guide](https://github.com/therightstuff/aws-cdk-js-dev-guide).
 
-## Tooling setup for local AWS development
+## Tooling setup for AWS development
 
 ### Preamble
 
