@@ -1,0 +1,14 @@
+{
+    "prod": {
+        "origin": "*",
+        "regions": ["za"]
+    },
+    "test": {
+        "origin": "*",
+        "regions": ["eu", "za"]
+    },
+    "dev": {
+        "origin": "*",
+        "regions": [""]
+    }
+}
