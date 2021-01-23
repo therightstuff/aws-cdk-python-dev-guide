@@ -123,7 +123,7 @@ api = RestApi(self, 'api-name', {
 
 # Enable CORS for a specific api resource
 api2 = RestApi(self, 'api2-name');
-api2_objects = api2.root.addResource('objects');
+api2_objects = api2.root.add_resource('objects');
 api2_objects.add_cors_preflight({
     # array containing an origin, or Cors.ALL_ORIGINS
     allow_origins: [ cors_origin ],
