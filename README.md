@@ -98,6 +98,26 @@ Lambda functions MUST return responses in the following format:
 }
 ```
 
+#### Lambda Layers
+
+Layers are composite packages that multiple lambda functions can reference.
+
+To create a layer, simply add a `<layer name>` folder in the `layers` directory that has the following folder structure:
+
+```text
+|- `layers/layer-name`
+    |- `python`
+        |- `lib`
+            |- `python3.X` # must match your lamdba runtime
+                |- `site-packages`
+                    |- `MODULE_1`
+                    |- `MODULE_2`
+```
+
+After installing a module in your virtual environment (eg. `pip install arrow`) you can simply copy its folder from the matching location under `.venv`, eg. `.venv/lib/python3.7/site-packages/arrow`.
+
+WARNING: A lambda function can use a maximum of 5 layers and be a maximum of 250MB unzipped.
+
 #### API Gateway Integrations
 
 When you create a `RestApi` object, the `.root` resource defaults to `/prod/`. You can add HTTP method handlers to the root, or add resource objects and add method handlers to those. To add a resource parameter, simply add a resource enclosed in curly braces (`{}`) and this will be accessible in the `event` object as `event.get("pathParameters")`.

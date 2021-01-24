@@ -1,6 +1,6 @@
 from aws_cdk import core
 from aws_cdk.aws_apigateway import Cors, RestApi, LambdaIntegration
-from aws_cdk.aws_lambda import Function, Runtime, Code
+from aws_cdk.aws_lambda import Function, Runtime, Code, LayerVersion
 
 class AwsCdkPythonDevGuideStack(core.Stack):
 
@@ -21,6 +21,10 @@ class AwsCdkPythonDevGuideStack(core.Stack):
             "allow_methods": Cors.ALL_METHODS, # array of methods eg. [ 'OPTIONS', 'GET', 'POST', 'PUT', 'DELETE' ]
         }
 
+        # ************************************************************************
+        # ************************ simple lambda function ************************
+        # ************************************************************************
+
         simple_function = Function(self, "simple-function",
             runtime=Runtime.PYTHON_3_8,
             code=Code.from_asset("handlers/simple"),
@@ -38,3 +42,26 @@ class AwsCdkPythonDevGuideStack(core.Stack):
             LambdaIntegration(simple_function,
                 request_templates={"application/json": '{ "statusCode": "200" }'}))
 
+        # ************************************************************************
+        # ********************* layer definition and usage ***********************
+        # ************************************************************************
+
+        layer = LayerVersion(self, 'sample-layer',
+            code=Code.from_asset('layers/sample-layer'),
+            compatible_runtimes=[Runtime.PYTHON_3_7],
+            license='MIT',
+            description='A sample layer for the layer test functions',)
+
+        # layer test function
+        layer_function = Function(self, 'layer-function',
+            runtime=Runtime.PYTHON_3_7,
+            code=Code.from_asset("handlers/layer"),
+            handler='index.main',
+            environment=cors_environment,
+            layers=[layer])
+
+        # layer api
+        layer_api = RestApi(self, 'layer-api',
+            default_cors_preflight_options=cors_options)
+
+        layer_api.root.add_method('GET', LambdaIntegration(layer_function));

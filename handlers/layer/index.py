@@ -1,13 +1,14 @@
 import json
 import os
 import uuid
+import arrow
 
 def main(event, context):
+    utc = arrow.utcnow()
     return_object = {
         "success": True,
-        "response_id": str(uuid.uuid4()),
-        "querystring": event.get("queryStringParameters"),
-        "environment_variables": os.environ['GREETING']
+        "utc": utc.format('YYYY-MM-DD HH:mm:ss ZZ'),
+        "utc_timestamp": utc.timestamp
     }
     return {
         "statusCode": 200,
