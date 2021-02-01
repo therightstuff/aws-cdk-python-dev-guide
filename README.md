@@ -82,6 +82,12 @@ The stack definition is located in the `/aws_cdk_python_dev_guide` folder, this 
 
 See [AWS CDK API documentation](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html) for reference.
 
+#### Tagging apps and stacks for cost reporting
+
+Tagging can be used for multiple purposes, but it's particularly useful in isolating costs per app / stack.
+
+The example `bin/aws-cdk-js-dev-guide.ts` demonstrates tag configuration for an entire app as well as its individual stacks. Please note that in order to enable tag filtering in the cost explorer, [tags must be individually activated](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/activating-tags.html).
+
 #### Lambda Functions
 
 Lambda functions are defined in the `handlers` directory, and include the following samples:
