@@ -1,6 +1,7 @@
 from aws_cdk import core
-from aws_cdk.aws_apigateway import Cors, RestApi, LambdaIntegration
-from aws_cdk.aws_lambda import Function, Runtime, Code, LayerVersion
+from aws_cdk.aws_apigateway import Cors, LambdaIntegration, RestApi
+from aws_cdk.aws_lambda import Code, Function, LayerVersion, Runtime
+
 
 class AwsCdkPythonDevGuideStack(core.Stack):
 
@@ -48,13 +49,13 @@ class AwsCdkPythonDevGuideStack(core.Stack):
 
         layer = LayerVersion(self, 'sample-layer',
             code=Code.from_asset('layers/sample-layer'),
-            compatible_runtimes=[Runtime.PYTHON_3_7],
+            compatible_runtimes=[Runtime.PYTHON_3_8],
             license='MIT',
             description='A sample layer for the layer test functions',)
 
         # layer test function
         layer_function = Function(self, 'layer-function',
-            runtime=Runtime.PYTHON_3_7,
+            runtime=Runtime.PYTHON_3_8,
             code=Code.from_asset("handlers/layer"),
             handler='index.main',
             environment=cors_environment,

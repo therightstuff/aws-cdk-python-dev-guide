@@ -1,4 +1,8 @@
 {
+    "us": {
+        "region": "us-east-1",
+        "account": "XXXXXXXXXXXX"
+    },
     "eu": {
         "region": "eu-west-1",
         "account": "XXXXXXXXXXXX"
